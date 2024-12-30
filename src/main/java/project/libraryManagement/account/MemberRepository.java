@@ -1,9 +1,6 @@
 package project.libraryManagement.account;
 
-import java.awt.*;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface MemberRepository {
-    void save(Member member);
-
-    Member findById(String memberid);
+public interface MemberRepository extends JpaRepository<Member, String> {
 }
