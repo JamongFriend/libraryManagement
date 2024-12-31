@@ -3,6 +3,7 @@ package project.libraryManagement.account;
 import lombok.Getter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import project.libraryManagement.domain.Member;
 
 @Service
 @Getter
