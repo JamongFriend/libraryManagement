@@ -28,13 +28,7 @@
     * 예약 취소
 ---
 ## Domain
-1. Member
-2. Book
-3. Reservation
-4. Rental
-
-
-
+![도서관리 시스템 도메인](diagram/library_domain.png)
 
 
 ---
