@@ -23,9 +23,13 @@ public class Book {
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    @OneToMany(mappedBy = "rental_book_id")
+    @OneToMany(mappedBy = "rental_book", cascade = CascadeType.ALL)
     private final List<RentalBook> rentalBookList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "reservation_id")
+    @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL)
     private final List<Reservation> reservationList = new ArrayList<>();
+
+    protected Book() {
+
+    }
 }

@@ -16,13 +16,14 @@ public class Rental {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
+    @OneToMany(mappedBy = "rental", cascade = CascadeType.ALL)
     private List<RentalBook> rentalBooks = new ArrayList<>();
 
     @ManyToOne
-    @JoinColumn(name = "reservation_id")
+    @JoinColumn(name = "reservation_id", nullable = true)
     private Reservation reservation;
 
     @Enumerated(EnumType.STRING)
@@ -31,11 +32,21 @@ public class Rental {
     private LocalDate rentalDate;
     private LocalDate returnDate;
 
-    public Rental(Member member, List<RentalBook> rentalBooks, RentalStatus status, LocalDate rentalDate, LocalDate returnDate) {
+    public void addRentalBook(RentalBook rentalBook) {
+        rentalBooks.add(rentalBook);
+        rentalBook.setRental(this);
+    }
+
+    protected Rental() {};
+
+    public Rental(Member member, List<RentalBook> rentalBooks, Reservation reservation, RentalStatus status, LocalDate rentalDate, LocalDate returnDate) {
         this.member = member;
-        this.rentalBooks = rentalBooks;
+        this.reservation = reservation;
         this.status = status;
         this.rentalDate = rentalDate;
         this.returnDate = returnDate;
+        for (RentalBook rentalBook : rentalBooks) {
+            addRentalBook(rentalBook);
+        }
     }
 }
