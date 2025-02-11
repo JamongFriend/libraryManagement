@@ -5,14 +5,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 @Entity
-@Getter
-@Setter
+@Table(name = "rental_book")
+@Getter @Setter
 public class RentalBook {
     @Id @GeneratedValue
     @Column(name = "rental_book_id")
     private Long id;
 
     private int count;
+    private int period;
 
     @ManyToOne
     @JoinColumn(name = "book_id")
@@ -22,5 +23,23 @@ public class RentalBook {
     @JoinColumn(name = "rental_id")
     private Rental rental;
 
-    protected RentalBook() {}
+    public void returnBook() {
+        this.book.addStock(count);
+        this.rental = null;
+    }
+
+    public void decreasePeriod() {
+        if (this.period > 0) {
+            this.period--;
+        }
+    }
+
+    public static RentalBook createRentalBook(Book book, int count, int period) {
+        RentalBook rentalBook = new RentalBook();
+        rentalBook.setBook(book);
+        rentalBook.setCount(count);
+        rentalBook.setPeriod(period);
+        book.removeStock(count);
+        return rentalBook;
+    }
 }

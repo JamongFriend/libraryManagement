@@ -17,12 +17,10 @@ public class RentalRepository {
     }
 
     public List<Rental> findAll() {
-        return em.createQuery("select m form Rental m", Rental.class).getResultList();
+        return em.createQuery("select m from Rental m", Rental.class).getResultList();
     }
 
-    public List<Rental> findByEmail(String email) {
-        return em.createQuery("select m from Rental m", Rental.class)
-                .setParameter("email", email)
-                .getResultList();
+    public Rental findRentaledBook(Long id) {
+        return em.find(Rental.class, id);
     }
 }

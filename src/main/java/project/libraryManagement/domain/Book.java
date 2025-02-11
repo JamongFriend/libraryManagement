@@ -23,13 +23,21 @@ public class Book {
     @Enumerated(EnumType.STRING)
     private Category category;
 
-    @OneToMany(mappedBy = "rental_book", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private final List<RentalBook> rentalBookList = new ArrayList<>();
 
     @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL)
     private final List<Reservation> reservationList = new ArrayList<>();
 
-    protected Book() {
+    protected Book() {}
 
+    public void addStock(int quantity) {
+        this.stockQuantity += quantity;
     }
+
+    public void removeStock(int quantity) {
+        this.stockQuantity -= quantity;
+    }
+
+
 }
