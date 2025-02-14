@@ -25,7 +25,6 @@ public class RentalBook {
 
     public void returnBook() {
         this.book.addStock(count);
-        this.rental = null;
     }
 
     public void decreasePeriod() {

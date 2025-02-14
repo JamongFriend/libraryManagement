@@ -26,7 +26,7 @@ public class Book {
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private final List<RentalBook> rentalBookList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "reservation", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private final List<Reservation> reservationList = new ArrayList<>();
 
     protected Book() {}

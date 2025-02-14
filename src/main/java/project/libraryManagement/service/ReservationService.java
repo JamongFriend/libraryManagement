@@ -17,9 +17,9 @@ import java.util.List;
 @Transactional
 @RequiredArgsConstructor
 public class ReservationService {
-    private MemberRepository memberRepository;
-    private ReservationRepository reservationRepository;
-    private BookRepository bookRepository;
+    private final MemberRepository memberRepository;
+    private final ReservationRepository reservationRepository;
+    private final BookRepository bookRepository;
 
     @Transactional
     public Long reservationBook(Long memberId, Long bookId, int count){

@@ -18,7 +18,7 @@ public class ReservationRepository {
         em.persist(reservation);
     }
 
-    public Reservation findMemerAndBook(Long memberId, Long bookId){
+    public Reservation findMemberAndBook(Long memberId, Long bookId){
         try{
             return em.createQuery("SELECT r FROM Reservation r WHERE r.memberId = :memberId AND r.bookId = :bookId",
                             Reservation.class)

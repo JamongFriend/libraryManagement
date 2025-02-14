@@ -25,7 +25,7 @@ public class RentalService {
         Member member = memberRepository.findOne(memberId);
         Book book = bookRepository.findOne(bookId);
 
-        Reservation reservation = reservationRepository.findMemerAndBook(memberId, bookId);
+        Reservation reservation = reservationRepository.findMemberAndBook(memberId, bookId);
 
         RentalBook rentalBook = RentalBook.createRentalBook(book, count, period);
         Rental rental = Rental.createRental(member, reservation, rentalBook);
