@@ -17,7 +17,8 @@ public class RentalRepository {
     }
 
     public List<Rental> findAll() {
-        return em.createQuery("select m from Rental m", Rental.class).getResultList();
+        return em.createQuery("select m from Rental m", Rental.class)
+                .getResultList();
     }
 
     public Rental findRentaledBook(Long id) {
