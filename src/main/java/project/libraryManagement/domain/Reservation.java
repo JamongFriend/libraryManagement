@@ -20,31 +20,37 @@ public class Reservation {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    private Integer bookQuantity;
-
-    @ManyToOne
-    @JoinColumn(name = "book_id")
-    private Book book;
-
     @OneToMany(mappedBy = "reservation")
-    private final List<Rental> rentalList = new ArrayList<>();
+    private List<ReservationBook> reservationBooks = new ArrayList<>();
 
     private LocalDateTime reservationDate;
 
     @Enumerated(EnumType.STRING)
     private ReservationStatus status;
 
-    public static Reservation createReservation(Member member, Book book, int count) {
+    public void addReservationBook(ReservationBook reservationBook) {
+        reservationBooks.add(reservationBook);
+        reservationBook.setReservation(this);
+    }
+
+    public void cancel() {
+        if(this.status == ReservationStatus.RESERVATION){
+            this.status = ReservationStatus.CANCEL;
+            for(ReservationBook reservationBook : new ArrayList<>(reservationBooks)){
+                reservationBook.cancel();
+            }
+        }
+    }
+
+    public static Reservation createReservation(Member member, ReservationBook... reservationBooks) {
         Reservation reservation = new Reservation();
         reservation.setMember(member);
-        reservation.setBook(book);
-        reservation.setBookQuantity(count);
+        for(ReservationBook reservationBook : reservationBooks) {
+            reservation.addReservationBook(reservationBook);
+        }
         reservation.setStatus(ReservationStatus.RESERVATION);
         reservation.setReservationDate(LocalDateTime.now());
         return reservation;
     }
 
-    public void cancel() {
-        this.setStatus(ReservationStatus.CANCEL);
-    }
 }
