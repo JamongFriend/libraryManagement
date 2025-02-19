@@ -17,15 +17,13 @@ import java.util.Optional;
 @Transactional(readOnly = true)
 public class MemberService {
 
-    @Autowired
-    private MemberRepository memberRepository;
-    private BCryptPasswordEncoder passwordEncoder;
+    private final MemberRepository memberRepository;
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public Long signUp(Member member, String name, String email, String password) {
+    public Long signUp(Member member) {
         validateDuplicateMember(member);
-        String encodeedPassword = passwordEncoder.encode(password);
-        Member newMember = new Member(name, email, encodeedPassword);
-        memberRepository.save(newMember);
+        member.setPassword(passwordEncoder.encode(member.getPassword()));
+        memberRepository.save(member);
         return member.getId();
     }
 
