@@ -22,7 +22,7 @@ public class BookController {
         return "books/createBook";
     }
 
-    @PostMapping(value = "books/new")
+    @PostMapping(value = "/books/new")
     public String create(BookForm form){
         Book book = new Book();
         form.setName(form.getName());
@@ -32,14 +32,14 @@ public class BookController {
         return "redirect:/";
     }
 
-    @GetMapping(value = "books")
+    @GetMapping(value = "/books")
     public String list(Model model){
         List<Book> books = bookService.findAllBook();
         model.addAttribute("books", books);
         return "books/bookList";
     }
 
-    @GetMapping(value = "books/{bookId}/edit")
+    @GetMapping(value = "/books/{bookId}/edit")
     public String updateBookForm(@PathVariable("itemId") Long id, Model model){
         Book book = bookService.findOne(id);
         BookForm form = new BookForm();
@@ -52,7 +52,7 @@ public class BookController {
         return "books/updateBookForm";
     }
 
-    @PostMapping(value = "books/{bookId}/edit")
+    @PostMapping(value = "/books/{bookId}/edit")
     public String updateBook(@PathVariable Long itemId, @ModelAttribute("form") BookForm form){
         bookService.updateBook(itemId, form.getName(), form.getAuthor(), form.getCategory(), form.getStockQuantity());
         return "redirect:/books";
