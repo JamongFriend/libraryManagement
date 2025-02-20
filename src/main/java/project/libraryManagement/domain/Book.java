@@ -2,12 +2,13 @@ package project.libraryManagement.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter
+@Getter @Setter
 public class Book {
     @Id
     @GeneratedValue
@@ -28,8 +29,6 @@ public class Book {
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
     private final List<Reservation> reservationList = new ArrayList<>();
-
-    protected Book() {}
 
     public void addStock(int quantity) {
         this.stockQuantity += quantity;

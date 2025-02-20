@@ -23,6 +23,28 @@ public class BookRepository {
         }
     }
 
+    public void deleteBook(Long bookId){
+        if(!canDeleteBook(bookId)) {
+            throw new IllegalArgumentException("대여중인 책은 삭제 불가능");
+        }
+        Book book = em.find(Book.class, bookId);
+        if(book != null){
+            em.remove(book);
+        }
+    }
+
+    public boolean canDeleteBook(Long bookId) {
+        Long count = em.createQuery("SELECT COUNT(r) FROM RentalBook r WHERE r.book.id = :bookId", Long.class)
+                .setParameter("bookId", bookId)
+                .getSingleResult();
+
+        count += em.createQuery("SELECT COUNT(r) FROM ReservationBook r WHERE r.book.id = :bookId", Long.class)
+                .setParameter("bookId", bookId)
+                .getSingleResult();
+
+        return count == 0;
+    }
+
     public Book findOne(Long id) {
         return em.find(Book.class, id);
     }
