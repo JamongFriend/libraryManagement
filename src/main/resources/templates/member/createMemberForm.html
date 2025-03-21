@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>회원가입</title>
+</head>
+<body>
+<h1>📝 회원가입</h1>
+
+<form th:action="@{/members/new}" th:object="${memberForm}" method="post">
+  <div>
+    이름: <input type="text" th:field="*{name}" placeholder="홍길동"/>
+    <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+  </div>
+  <div>
+    이메일: <input type="email" th:field="*{email}" placeholder="example@email.com"/>
+    <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+  </div>
+  <div>
+    비밀번호: <input type="password" th:field="*{password}"/>
+    <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
+  </div>
+  <div>
+    비밀번호 확인: <input type="password" th:field="*{passwordConfirm}"/>
+    <span th:if="${#fields.hasErrors('passwordConfirm')}" th:errors="*{passwordConfirm}"></span>
+  </div>
+  <br>
+  <button type="submit">회원가입</button>
+</form>
+
+</body>
+</html>

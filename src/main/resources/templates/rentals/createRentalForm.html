@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>도서 대여</title>
+</head>
+<body>
+<h1>📘 도서 대여</h1>
+
+<form th:action="@{/rentals}" method="post">
+  <label for="member">회원 선택:</label>
+  <select name="memberId" id="member">
+    <option th:each="member : ${members}"
+            th:value="${member.id}"
+            th:text="${member.name}">회원명</option>
+  </select>
+  <br><br>
+
+  <label for="book">도서 선택:</label>
+  <select name="bookId" id="book">
+    <option th:each="book : ${books}"
+            th:value="${book.id}"
+            th:text="${book.bookName}">도서명</option>
+  </select>
+  <br><br>
+
+  수량: <input type="number" name="count" value="1" min="1"><br><br>
+  대여 기간(일): <input type="number" name="period" value="7" min="1"><br><br>
+
+  <button type="submit">대여하기</button>
+</form>
+</body>
+</html>

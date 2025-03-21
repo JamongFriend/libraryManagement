@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>홈</title>
+</head>
+<body>
+<h1>📚 도서 관리 시스템</h1>
+
+<ul>
+  <li><a th:href="@{/members/new}">회원가입</a></li>
+  <li><a th:href="@{/login}">로그인</a></li>
+  <li><a th:href="@{/books}">도서 목록</a></li>
+  <li><a th:href="@{/books/new}">도서 등록</a></li>
+  <li><a th:href="@{/rentals}">도서 대여</a></li>
+  <li><a th:href="@{/reservations}">도서 예약</a></li>
+</ul>
+</body>
+</html>

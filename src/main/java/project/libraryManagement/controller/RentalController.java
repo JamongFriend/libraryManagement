@@ -43,12 +43,12 @@ public class RentalController {
         return "redirect:/rentals";
     }
 
-    @PostMapping(value = "/rentals")
+    @PostMapping("/rentals/return")
     public String returnBook(@RequestParam Long rentalId) {
         rentalService.returnBook(rentalId);
-
         return "redirect:/rentals";
     }
+
 
     @GetMapping(value = "/rentals")
     public String list(Model model){
