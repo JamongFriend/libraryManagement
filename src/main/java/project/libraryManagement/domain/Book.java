@@ -21,6 +21,8 @@ public class Book {
 
     private String author;
 
+    private String isbn;
+
     @Enumerated(EnumType.STRING)
     private Category category;
 

@@ -27,6 +27,7 @@ public class BookController {
         Book book = new Book();
         form.setName(form.getName());
         form.setAuthor(form.getAuthor());
+        form.setIsbn(form.getIsbn());
         form.setCategory(form.getCategory());
         form.setStockQuantity(form.getStockQuantity());
         return "redirect:/";
@@ -46,6 +47,7 @@ public class BookController {
         form.setId(form.getId());
         form.setName(form.getName());
         form.setAuthor(form.getAuthor());
+        form.setIsbn(form.getIsbn());
         form.setCategory(form.getCategory());
         form.setStockQuantity(form.getStockQuantity());
         model.addAttribute("form", form);
@@ -54,7 +56,7 @@ public class BookController {
 
     @PostMapping(value = "/books/{bookId}/edit")
     public String updateBook(@PathVariable Long itemId, @ModelAttribute("form") BookForm form){
-        bookService.updateBook(itemId, form.getName(), form.getAuthor(), form.getCategory(), form.getStockQuantity());
+        bookService.updateBook(itemId, form.getName(), form.getIsbn(), form.getAuthor(), form.getCategory(), form.getStockQuantity());
         return "redirect:/books";
     }
 
