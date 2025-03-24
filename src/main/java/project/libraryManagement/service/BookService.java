@@ -20,10 +20,11 @@ public class BookService {
         bookRepository.save(book);
     }
 
-    public void updateBook(Long id, String name, String author, Category category, int stockQuantity){
+    public void updateBook(Long id, String name, String isbn, String author, Category category, int stockQuantity){
         Book book = bookRepository.findOne(id);
         book.setBookName(name);
         book.setAuthor(author);
+        book.setIsbn(isbn);
         book.setCategory(category);
         book.setStockQuantity(stockQuantity);
     }
