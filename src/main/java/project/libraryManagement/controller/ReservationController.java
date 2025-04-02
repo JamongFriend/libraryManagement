@@ -43,14 +43,14 @@ public class ReservationController {
         return "redirect:/reservations";
     }
 
-    @PostMapping(value = "/reservations")
+    @PostMapping(value = "/reservations/{id}/cancel")
     public String cancelReservation(Long reservationId){
         reservationService.cancel(reservationId);
 
         return "redirect:/reservations";
     }
 
-    @GetMapping(value = "/reservations")
+    @GetMapping(value = "/reservations/list")
     public String reservationList(Model model) {
         List<Reservation> reservations = reservationService.findAll();
         model.addAttribute("reservations", reservations);

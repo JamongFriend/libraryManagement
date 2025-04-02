@@ -50,7 +50,7 @@ public class RentalController {
     }
 
 
-    @GetMapping(value = "/rentals")
+    @GetMapping(value = "/rentals/list")
     public String list(Model model){
         List<Rental> rentals = rentalService.findAll();
         model.addAttribute("rentals", rentals);

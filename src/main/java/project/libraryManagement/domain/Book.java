@@ -30,7 +30,7 @@ public class Book {
     private final List<RentalBook> rentalBookList = new ArrayList<>();
 
     @OneToMany(mappedBy = "book", cascade = CascadeType.ALL)
-    private final List<Reservation> reservationList = new ArrayList<>();
+    private final List<ReservationBook> reservationList = new ArrayList<>();
 
     public void addStock(int quantity) {
         this.stockQuantity += quantity;
