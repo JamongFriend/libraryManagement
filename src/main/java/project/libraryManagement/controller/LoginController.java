@@ -24,14 +24,14 @@ public class LoginController {
                         @RequestParam String password,
                         HttpSession session,
                         Model model) {
-        Long memberId = memberService.login(email, password, session);
-        if (memberId == null) {
-            model.addAttribute("loginError", "이메일 또는 비밀번호가 틀렸습니다.");
+        try {
+            Long memberId = memberService.login(email, password, session);
+            session.setAttribute("memberId", memberId);
+            return "redirect:/";
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("loginError", e.getMessage());
             return "login";
         }
-
-        session.setAttribute("memberId", memberId);
-        return "redirect:/";
     }
 }
 
