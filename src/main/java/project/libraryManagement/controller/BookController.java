@@ -1,5 +1,6 @@
 package project.libraryManagement.controller;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -16,8 +17,11 @@ import java.util.List;
 public class BookController {
     private final BookService bookService;
 
-    @GetMapping(value = "books/new")
-    public String createForm(Model model){
+    @GetMapping("/books/new")
+    public String createForm(HttpSession session, Model model) {
+        if (session.getAttribute("memberId") == null) {
+            return "redirect:/login";
+        }
         model.addAttribute("bookForm", new BookForm());
         return "books/createBook";
     }

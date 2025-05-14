@@ -2,12 +2,16 @@ package project.libraryManagement.controller;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import project.libraryManagement.service.MemberService;
+
+import java.util.List;
 
 @Controller
 @RequiredArgsConstructor
@@ -27,6 +31,11 @@ public class LoginController {
         try {
             Long memberId = memberService.login(email, password, session);
             session.setAttribute("memberId", memberId);
+
+            UsernamePasswordAuthenticationToken auth =
+                    new UsernamePasswordAuthenticationToken(email, null, List.of());
+            SecurityContextHolder.getContext().setAuthentication(auth);
+
             return "redirect:/";
         } catch (IllegalArgumentException e) {
             model.addAttribute("loginError", e.getMessage());

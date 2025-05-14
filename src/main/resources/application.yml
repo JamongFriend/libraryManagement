@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: libraryManagement
+  thymeleaf:
+    prefix: classpath:/templates/
+    suffix: .html
+  mvc:
+    view:
+      prefix: ""
+      suffix: ""
+  datasource:
+    url: jdbc:mysql://127.0.0.1:3306/LibraryManagement?serverTimezone=UTC
+    username: library
+    password: 83492761
+  security:
+    user:
+      name: none
+      password: none
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+    database-platform: org.hibernate.dialect.MySQLDialect
+
+library:
+  api:
+    key: "17c60327b671da925739a2a7ade86b912ba78cb13e1b1d79f48c37c4d19d46ef"

@@ -5,34 +5,23 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
     @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-
-    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/login", "/logout", "/members/**", "/books/**", "/css/**", "/js/**").permitAll()
+                        .requestMatchers(
+                                "/", "/login", "/logout", "/members/**",
+                                "/css/**", "/js/**", "/images/**", "/books/**"
+                        ).permitAll()
                         .anyRequest().authenticated()
-                )
-                .formLogin(login -> login
-                        .loginPage("/login")
-                        .defaultSuccessUrl("/", true)
-                        .permitAll()
-                )
-                .logout(logout -> logout
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/")
-                        .permitAll()
-                )
-                .csrf(csrf -> csrf.disable());
+                );
+        http.formLogin(config -> config.disable());
+        http.logout(config -> config.disable());
+        http.csrf(config -> config.disable());
 
         return http.build();
     }

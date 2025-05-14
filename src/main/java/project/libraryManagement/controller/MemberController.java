@@ -31,7 +31,7 @@ public class MemberController {
             return "member/createMemberForm";
         }
 
-        Member member = new Member(form.getName(), form.getEmail(), form.getEmail());
+        Member member = new Member(form.getName(), form.getPassword(), form.getEmail());
         memberService.signUp(member);
 
         return "redirect:/";

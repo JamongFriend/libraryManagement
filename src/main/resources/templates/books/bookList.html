@@ -25,5 +25,10 @@
     </td>
   </tr>
 </table>
+
+<div th:if="${session.memberId != null}">
+  <a th:href="@{/books/new}">도서 등록</a>
+</div>
+
 </body>
 </html>
