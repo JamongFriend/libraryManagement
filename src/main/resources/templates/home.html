@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
   <title>홈</title>
@@ -9,18 +9,16 @@
 
 <ul>
   <li><a th:href="@{/members/new}">회원가입</a></li>
-  <div th:if="${session.memberId != null}">
-    <p>로그인된 사용자입니다</p>
-    <a th:href="@{/logout}">로그아웃</a>
-  </div>
-
-  <div th:unless="${session.memberId != null}">
-    <a th:href="@{/login}">로그인</a>
-  </div>
+  <li><a th:href="@{/login}">로그인</a></li>
   <li><a th:href="@{/books}">도서 목록</a></li>
   <li><a th:href="@{/books/new}">도서 등록</a></li>
   <li><a th:href="@{/rentals}">도서 대여</a></li>
   <li><a th:href="@{/reservations}">도서 예약</a></li>
 </ul>
+
+<form th:action="@{/logout}" method="post" style="margin-top: 20px;">
+  <button type="submit">로그아웃</button>
+</form>
+
 </body>
 </html>

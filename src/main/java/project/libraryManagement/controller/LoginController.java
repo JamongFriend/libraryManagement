@@ -23,24 +23,24 @@ public class LoginController {
         return "login";
     }
 
-    @PostMapping("/login")
-    public String login(@RequestParam String email,
-                        @RequestParam String password,
-                        HttpSession session,
-                        Model model) {
-        try {
-            Long memberId = memberService.login(email, password, session);
-            session.setAttribute("memberId", memberId);
-
-            UsernamePasswordAuthenticationToken auth =
-                    new UsernamePasswordAuthenticationToken(email, null, List.of());
-            SecurityContextHolder.getContext().setAuthentication(auth);
-
-            return "redirect:/";
-        } catch (IllegalArgumentException e) {
-            model.addAttribute("loginError", e.getMessage());
-            return "login";
-        }
-    }
+//    @PostMapping("/login")
+//    public String login(@RequestParam String email,
+//                        @RequestParam String password,
+//                        HttpSession session,
+//                        Model model) {
+//        try {
+//            Long memberId = memberService.login(email, password, session);
+//            session.setAttribute("memberId", memberId);
+//
+//            UsernamePasswordAuthenticationToken auth =
+//                    new UsernamePasswordAuthenticationToken(email, null, List.of());
+//            SecurityContextHolder.getContext().setAuthentication(auth);
+//
+//            return "redirect:/";
+//        } catch (IllegalArgumentException e) {
+//            model.addAttribute("loginError", e.getMessage());
+//            return "login";
+//        }
+//    }
 }
 
