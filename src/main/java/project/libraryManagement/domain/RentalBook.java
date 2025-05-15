@@ -33,6 +33,8 @@ public class RentalBook {
         }
     }
 
+    protected RentalBook() {}
+
     public static RentalBook createRentalBook(Book book, int count, int period) {
         RentalBook rentalBook = new RentalBook();
         rentalBook.setBook(book);

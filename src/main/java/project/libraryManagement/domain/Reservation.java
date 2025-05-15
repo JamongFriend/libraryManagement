@@ -53,4 +53,6 @@ public class Reservation {
         return reservation;
     }
 
+    protected Reservation() {}
+
 }

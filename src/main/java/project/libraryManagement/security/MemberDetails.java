@@ -28,6 +28,9 @@ public class MemberDetails implements UserDetails {
     public String getUsername() {
         return member.getEmail(); // 로그인 시 사용할 식별자
     }
+    public Long getId() {
+        return member.getId();
+    }
 
     @Override public boolean isAccountNonExpired() { return true; }
     @Override public boolean isAccountNonLocked() { return true; }

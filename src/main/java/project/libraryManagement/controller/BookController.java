@@ -28,12 +28,16 @@ public class BookController {
 
     @PostMapping(value = "/books/new")
     public String create(BookForm form){
-        Book book = new Book();
-        form.setName(form.getName());
-        form.setAuthor(form.getAuthor());
-        form.setIsbn(form.getIsbn());
-        form.setCategory(form.getCategory());
-        form.setStockQuantity(form.getStockQuantity());
+        Book book = new Book(
+                form.getName(),
+                form.getStockQuantity(),
+                form.getAuthor(),
+                form.getIsbn(),
+                form.getCategory()
+        );
+
+        bookService.saveBook(book);
+
         return "redirect:/";
     }
 

@@ -50,6 +50,8 @@ public class Rental {
 
     }
 
+    protected Rental() {}
+
     public void returnRentalBook(RentalBook rentalBook){
         if(!rentalBooks.contains(rentalBook)){
             throw new IllegalArgumentException("해당 대여 내역이 존재하지 않습니다");

@@ -40,5 +40,14 @@ public class Book {
         this.stockQuantity -= quantity;
     }
 
+    public Book(String bookName, int stockQuantity, String author, String isbn, Category category) {
+        this.bookName = bookName;
+        this.stockQuantity = stockQuantity;
+        this.author = author;
+        this.isbn = isbn;
+        this.category = category;
+    }
+
+    protected Book() {}
 
 }

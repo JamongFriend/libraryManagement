@@ -35,4 +35,5 @@ public class ReservationBook {
         return reservationBook;
     }
 
+    protected ReservationBook() {}
 }

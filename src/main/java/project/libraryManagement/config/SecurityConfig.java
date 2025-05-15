@@ -23,7 +23,8 @@ public class SecurityConfig {
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
                         .requestMatchers(
                                 "/", "/login", "/logout", "/members/**",
-                                "/css/**", "/js/**", "/images/**", "/books/**"
+                                "/books/**",
+                                "/css/**", "/js/**", "/images/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
@@ -33,6 +34,7 @@ public class SecurityConfig {
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
                         .defaultSuccessUrl("/", true)
+                        .successHandler(new CustomLoginSuccessHandler())
                         .failureUrl("/login?error=true")
                         .permitAll()
                 )
