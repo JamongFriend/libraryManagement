@@ -19,6 +19,8 @@ public class Member {
     private String password;
     private String email;
 
+    protected Member() {}
+
     public Member(String name, String password, String email) {
         this.name = name;
         this.password = password;

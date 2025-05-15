@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="ko">
 <head>
   <meta charset="UTF-8">
   <title>홈</title>
@@ -7,18 +9,27 @@
 <body>
 <h1>📚 도서 관리 시스템</h1>
 
+<!-- 로그인 상태 출력 -->
+<div sec:authorize="isAuthenticated()">
+  <p><b><span sec:authentication="name"></span></b>님 환영합니다!</p>
+</div>
+
 <ul>
-  <li><a th:href="@{/members/new}">회원가입</a></li>
-  <li><a th:href="@{/login}">로그인</a></li>
+  <li sec:authorize="isAnonymous()"><a th:href="@{/members/new}">회원가입</a></li>
+  <li sec:authorize="isAnonymous()"><a th:href="@{/login}">로그인</a></li>
+
   <li><a th:href="@{/books}">도서 목록</a></li>
   <li><a th:href="@{/books/new}">도서 등록</a></li>
   <li><a th:href="@{/rentals}">도서 대여</a></li>
   <li><a th:href="@{/reservations}">도서 예약</a></li>
 </ul>
 
-<form th:action="@{/logout}" method="post" style="margin-top: 20px;">
-  <button type="submit">로그아웃</button>
-</form>
+<!-- 로그아웃 버튼 (로그인한 사용자만 보임) -->
+<div sec:authorize="isAuthenticated()" style="margin-top: 20px;">
+  <form th:action="@{/logout}" method="post">
+    <button type="submit">로그아웃</button>
+  </form>
+</div>
 
 </body>
 </html>
