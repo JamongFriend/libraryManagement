@@ -9,6 +9,8 @@
 <body>
 <h1>📚 도서 관리 시스템</h1>
 
+<div th:replace="fragments/header :: header"></div>
+
 <!-- 로그인 상태 출력 -->
 <div sec:authorize="isAuthenticated()">
   <p><b><span sec:authentication="name"></span></b>님 환영합니다!</p>
@@ -30,6 +32,6 @@
     <button type="submit">로그아웃</button>
   </form>
 </div>
-
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

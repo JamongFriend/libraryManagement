@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="header">
+  <header style="background-color:#f2f2f2;padding:15px;">
+    <h2>📚 도서 관리 시스템</h2>
+    <nav>
+      <a th:href="@{/}">홈</a> |
+      <a th:href="@{/members/new}">회원가입</a> |
+      <a th:href="@{/login}">로그인</a>
+    </nav>
+  </header>
+  <hr>
+</div>
