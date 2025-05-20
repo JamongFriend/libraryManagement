@@ -6,7 +6,7 @@ import project.libraryManagement.domain.Category;
 
 @Getter @Setter
 public class BookForm {
-    private String id;
+    private Long id;
     private String name;
     private String author;
     private String isbn;
