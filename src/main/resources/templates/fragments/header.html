@@ -2,11 +2,24 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="header">
   <header style="background-color:#f2f2f2;padding:15px;">
-    <h2>📚 도서 관리 시스템</h2>
+    <h1>📚 도서 관리 시스템</h1>
     <nav>
       <a th:href="@{/}">홈</a> |
-      <a th:href="@{/members/new}">회원가입</a> |
-      <a th:href="@{/login}">로그인</a>
+      <a th:href="@{/books}">도서 목록</a> |
+      <a th:href="@{/rentals}">도서 대여</a> |
+      <a th:href="@{/reservations}">도서 예약</a> |
+      <!-- 로그인 상태가 아니면: 회원가입, 로그인 -->
+      <span th:if="${session.memberName == null}">
+        <a th:href="@{/members/new}">회원가입</a> |
+        <a th:href="@{/login}">로그인</a>
+      </span>
+
+      <!-- 로그인 상태면: 이름 + 로그아웃 -->
+      <span th:if="${session.memberName != null}">
+        <strong th:text="${session.memberName}">사용자</strong>님 환영합니다!
+        |
+        <a th:href="@{/logout}">로그아웃</a>
+      </span>
     </nav>
   </header>
   <hr>

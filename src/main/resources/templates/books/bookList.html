@@ -18,15 +18,19 @@
   <tr th:each="book : ${books}">
     <td th:text="${book.bookName}">책이름</td>
     <td th:text="${book.author}">저자</td>
-    <td th:text="${book.category}">카테고리</td>
+    <td th:text="${book.category.displayName}">카테고리</td>
     <td th:text="${book.stockQuantity}">0</td>
     <td>
       <a th:href="@{'/books/' + ${book.id} + '/edit'}">수정</a>
+      <form th:action="@{'/books/' + ${book.id}}" method="post" style="display:inline;">
+        <input type="hidden" name="_method" value="delete" />
+        <button type="submit" onclick="return confirm('정말 삭제하시겠습니까?')">삭제</button>
+      </form>
     </td>
   </tr>
 </table>
 
-<div th:if="${session.memberId != null}">
+<div th:if="${isLoggedIn}">
   <a th:href="@{/books/new}">도서 등록</a>
 </div>
 

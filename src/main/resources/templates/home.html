@@ -7,9 +7,7 @@
   <title>홈</title>
 </head>
 <body>
-<h1>📚 도서 관리 시스템</h1>
-
-<div th:replace="fragments/header :: header"></div>
+<div th:replace="~{fragments/header :: header}"></div>
 
 <!-- 로그인 상태 출력 -->
 <div sec:authorize="isAuthenticated()">
@@ -17,9 +15,6 @@
 </div>
 
 <ul>
-  <li sec:authorize="isAnonymous()"><a th:href="@{/members/new}">회원가입</a></li>
-  <li sec:authorize="isAnonymous()"><a th:href="@{/login}">로그인</a></li>
-
   <li><a th:href="@{/books}">도서 목록</a></li>
   <li><a th:href="@{/books/new}">도서 등록</a></li>
   <li><a th:href="@{/rentals}">도서 대여</a></li>
@@ -32,6 +27,6 @@
     <button type="submit">로그아웃</button>
   </form>
 </div>
-<div th:replace="fragments/footer :: footer"></div>
+<div th:replace="~{fragments/footer :: footer}"></div>
 </body>
 </html>
