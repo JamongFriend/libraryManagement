@@ -20,6 +20,7 @@ public class BookService {
         bookRepository.save(book);
     }
 
+    @Transactional
     public void updateBook(Long id, String name, String isbn, String author, Category category, int stockQuantity){
         Book book = bookRepository.findOne(id);
         book.setBookName(name);
@@ -29,6 +30,7 @@ public class BookService {
         book.setStockQuantity(stockQuantity);
     }
 
+    @Transactional
     public void deleteBook(Long id) {
         bookRepository.deleteBook(id);
     }

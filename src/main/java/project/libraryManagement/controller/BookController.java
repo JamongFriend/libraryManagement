@@ -1,13 +1,14 @@
 package project.libraryManagement.controller;
 
 import jakarta.servlet.http.HttpSession;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.libraryManagement.domain.Book;
+import project.libraryManagement.domain.Category;
 import project.libraryManagement.service.BookService;
 
 import java.util.List;
@@ -23,11 +24,16 @@ public class BookController {
             return "redirect:/login";
         }
         model.addAttribute("bookForm", new BookForm());
+        model.addAttribute("categories", Category.values());
         return "books/createBook";
     }
 
     @PostMapping(value = "/books/new")
-    public String create(BookForm form){
+    public String create(BookForm form, BindingResult result, Model model){
+        if (result.hasErrors()) {
+            model.addAttribute("categories", Category.values());
+            return "books/createBook";
+        }
         Book book = new Book(
                 form.getName(),
                 form.getStockQuantity(),
@@ -35,42 +41,49 @@ public class BookController {
                 form.getIsbn(),
                 form.getCategory()
         );
-
         bookService.saveBook(book);
-
         return "redirect:/";
     }
 
     @GetMapping(value = "/books")
-    public String list(Model model){
+    public String list(HttpSession session, Model model){
         List<Book> books = bookService.findAllBook();
         model.addAttribute("books", books);
+        model.addAttribute("isLoggedIn", session.getAttribute("memberId") != null);
+
         return "books/bookList";
     }
 
     @GetMapping(value = "/books/{bookId}/edit")
-    public String updateBookForm(@PathVariable("itemId") Long id, Model model){
+    public String updateBookForm(@PathVariable("bookId") Long id, Model model){
         Book book = bookService.findOne(id);
         BookForm form = new BookForm();
-        form.setId(form.getId());
-        form.setName(form.getName());
-        form.setAuthor(form.getAuthor());
-        form.setIsbn(form.getIsbn());
-        form.setCategory(form.getCategory());
-        form.setStockQuantity(form.getStockQuantity());
+        form.setId(book.getId());
+        form.setName(book.getBookName());
+        form.setAuthor(book.getAuthor());
+        form.setIsbn(book.getIsbn());
+        form.setCategory(book.getCategory());
+        form.setStockQuantity(book.getStockQuantity());
         model.addAttribute("form", form);
+        model.addAttribute("categories", Category.values());
         return "books/updateBookForm";
     }
 
     @PostMapping(value = "/books/{bookId}/edit")
-    public String updateBook(@PathVariable Long itemId, @ModelAttribute("form") BookForm form){
-        bookService.updateBook(itemId, form.getName(), form.getIsbn(), form.getAuthor(), form.getCategory(), form.getStockQuantity());
+    public String updateBook(@PathVariable("bookId") Long bookId, @ModelAttribute("form") BookForm form){
+        bookService.updateBook(bookId, form.getName(), form.getIsbn(), form.getAuthor(), form.getCategory(), form.getStockQuantity());
+        System.out.println("✅ 수정 실행됨: " + bookId + " / " + form.getName());
         return "redirect:/books";
     }
 
-    @DeleteMapping(value = "{bookId}")
-    public String delete(@PathVariable("itemId") Long bookId) {
-        bookService.deleteBook(bookId);
+    @DeleteMapping(value = "/books/{bookId}")
+    public String delete(@PathVariable("bookId") Long bookId, RedirectAttributes redirectAttributes) {
+        try {
+            bookService.deleteBook(bookId);
+            redirectAttributes.addFlashAttribute("message", "도서가 성공적으로 삭제되었습니다.");
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("errorMessage", e.getMessage());
+        }
         return "redirect:/books";
     }
 }
