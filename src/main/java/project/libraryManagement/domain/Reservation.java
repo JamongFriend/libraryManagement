@@ -20,6 +20,9 @@ public class Reservation {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @ManyToOne
+    private Book book;
+
     @OneToMany(mappedBy = "reservation")
     private List<ReservationBook> reservationBooks = new ArrayList<>();
 

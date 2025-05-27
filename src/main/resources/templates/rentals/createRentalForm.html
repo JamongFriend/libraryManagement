@@ -5,6 +5,7 @@
   <title>도서 대여</title>
 </head>
 <body>
+<div th:replace="~{fragments/header :: header}"></div>
 <h1>📘 도서 대여</h1>
 
 <form th:action="@{/rentals}" method="post">

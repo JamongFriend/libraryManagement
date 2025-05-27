@@ -49,14 +49,10 @@ public class RentalController {
         return "redirect:/rentals";
     }
 
-
     @GetMapping(value = "/rentals/list")
     public String list(Model model){
         List<Rental> rentals = rentalService.findAll();
         model.addAttribute("rentals", rentals);
         return "rentals/rentalList";
     }
-
-
-
 }

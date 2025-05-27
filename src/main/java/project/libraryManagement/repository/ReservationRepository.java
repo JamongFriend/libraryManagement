@@ -19,17 +19,17 @@ public class ReservationRepository {
     }
 
     public Reservation findMemberAndBook(Long memberId, Long bookId){
-        try{
-            return em.createQuery("SELECT r FROM Reservation r WHERE r.memberId = :memberId AND r.bookId = :bookId",
+        try {
+            return em.createQuery("SELECT r FROM Reservation r WHERE r.member.id = :memberId AND r.book.id = :bookId",
                             Reservation.class)
                     .setParameter("memberId", memberId)
                     .setParameter("bookId", bookId)
                     .getSingleResult();
-        }
-        catch (NoResultException e){
+        } catch (NoResultException e) {
             return null;
         }
     }
+
 
     public Reservation findReservationBook(Long id) {
         return em.find(Reservation.class, id);
