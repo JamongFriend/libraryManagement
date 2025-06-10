@@ -26,6 +26,7 @@ public class SecurityConfig {
                                 "/books/**",
                                 "/css/**", "/js/**", "/images/**"
                         ).permitAll()
+                        .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 // 커스텀 로그인 페이지

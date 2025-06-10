@@ -1,9 +1,6 @@
 package project.libraryManagement.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,6 +15,9 @@ public class Member {
     private String name;
     private String password;
     private String email;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     protected Member() {}
 
