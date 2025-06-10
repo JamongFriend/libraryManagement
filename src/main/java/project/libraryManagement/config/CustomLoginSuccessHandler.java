@@ -26,7 +26,13 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
         HttpSession session = request.getSession();
         session.setAttribute("memberId", memberId);
 
-        // 원하는 URL로 리다이렉트
-        response.sendRedirect("/");
+        boolean isAdmin = authentication.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+        if (isAdmin) {
+            response.sendRedirect("/admin/home");
+        }
+        else {
+            response.sendRedirect("/main");
+        }
     }
 }

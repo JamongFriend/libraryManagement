@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>메인</title>
+</head>
+<body>
+<div th:replace="~{fragments/header :: header}"></div>
+
+<!-- 로그인 상태 출력 -->
+<div sec:authorize="isAuthenticated()">
+    <p><b><span sec:authentication="name"></span></b>님 환영합니다!</p>
+</div>
+
+<ul>
+    <li><a th:href="@{/books}">도서 목록</a></li>
+    <li><a th:href="@{/rentals}">도서 대여</a></li>
+    <li><a th:href="@{/reservations}">도서 예약</a></li>
+</ul>
+
+<!-- 로그아웃 버튼 -->
+<div sec:authorize="isAuthenticated()" style="margin-top: 20px;">
+    <form th:action="@{/logout}" method="post">
+        <button type="submit">로그아웃</button>
+    </form>
+</div>
+
+<div th:replace="~{fragments/footer :: footer}"></div>
+</body>
+</html>
