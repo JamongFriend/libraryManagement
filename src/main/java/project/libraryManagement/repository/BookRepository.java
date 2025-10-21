@@ -22,7 +22,7 @@ public class BookRepository {
             em.merge(book);
         }
     }
-
+    //책 삭제
     public void deleteBook(Long bookId){
         if(!canDeleteBook(bookId)) {
             throw new IllegalArgumentException("대여중인 책은 삭제 불가능");
@@ -32,7 +32,7 @@ public class BookRepository {
             em.remove(book);
         }
     }
-
+    //책 삭제가능 여부
     public boolean canDeleteBook(Long bookId) {
         Long count = em.createQuery("SELECT COUNT(r) FROM RentalBook r WHERE r.book.id = :bookId", Long.class)
                 .setParameter("bookId", bookId)
@@ -44,12 +44,17 @@ public class BookRepository {
 
         return count == 0;
     }
-
+    //책을 id를 통해 조회
     public Book findOne(Long id) {
         return em.find(Book.class, id);
     }
-
+    //책 전체 조회
     public List<Book> findAll() {
         return em.createQuery("select m from Book m", Book.class).getResultList();
+    }
+
+    //재고가 0이 되는것을 방지
+    public Book findByIdForUpdate(Long id) {
+        return em.find(Book.class, id, jakarta.persistence.LockModeType.PESSIMISTIC_WRITE);
     }
 }

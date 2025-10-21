@@ -36,20 +36,19 @@ public class RentalService {
 
     @Transactional
     public void returnBook(Long rentalId) {
-        Rental rental = rentalRepository.findRentaledBook(rentalId);
+        Rental rental = rentalRepository.findById(rentalId);
         rental.returnRental();
     }
 
+    @Transactional
     public List<Rental> findAll() {
         return rentalRepository.findAll();
     }
 
-    @Scheduled(cron = "0 0 0 * * *")
+    @Scheduled(cron = "0 0 0 * * *", zone = "Asia/Seoul")
     @Transactional
     public void reduceRentalPeriod() {
-        List<Rental> rentals = rentalRepository.findAll();
-        for(Rental rental : rentals){
-            rental.decreaseRentalPeriod();
-        }
+        List<Rental> rentals = rentalRepository.findActiveWithPositiveDaysLeft();
+        rentals.forEach(Rental::decreaseRentalPeriod);
     }
 }
