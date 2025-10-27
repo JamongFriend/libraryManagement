@@ -20,6 +20,7 @@ public class ReservationService {
     private final MemberRepository memberRepository;
     private final ReservationRepository reservationRepository;
     private final BookRepository bookRepository;
+    private final RentalService rentalService;
 
     @Transactional
     public Long reservationBook(Long memberId, Long bookId, int count){
@@ -29,6 +30,12 @@ public class ReservationService {
         ReservationBook reservationBook = ReservationBook.createReservationBook(book, count);
         Reservation reservation = Reservation.createReservation(member, reservationBook);
         reservationRepository.save(reservation);
+
+        // 재고가 남을 시 자동 대여 시도
+        if(book.getStockQuantity() > 0) {
+            rentalService.allocateToNextReservationIfAny(book.getId());
+        }
+
         return reservation.getId();
     }
 

@@ -37,7 +37,34 @@ public class RentalService {
     @Transactional
     public void returnBook(Long rentalId) {
         Rental rental = rentalRepository.findById(rentalId);
-        rental.returnRental();
+        if (rental == null) {
+            throw new IllegalArgumentException("대여 내역 없음");
+        }
+        rental.returnRental(); // 반납 처리
+
+        // 반납된 책에 대하여 예약된 유저에게 자동 대여
+        rental.getRentalBooks().forEach(rb -> {
+            Long bookId = rb.getBook().getId();
+            allocateToNextReservationIfAny(bookId);
+        });
+
+    }
+
+    @Transactional
+    public void allocateToNextReservationIfAny(Long bookId) {
+        Book book = bookRepository.findOne(bookId);
+        if(book == null ||  book.getStockQuantity() <= 0) return;
+
+        Reservation EarlistReservaion = reservationRepository.findEarlistByBook(bookId);
+        if(EarlistReservaion == null) return;
+
+        int count = 1;
+        int period = 14;
+        RentalBook rentalBook = RentalBook.createRentalBook(book, count, period);
+        Rental rental = Rental.createRental(member, EarlistReservaion, rentalBook);
+        rentalRepository.save(rental);
+
+        EarlistReservaion.setStatus(ReservationStatus.FULFILLED);
     }
 
     @Transactional
