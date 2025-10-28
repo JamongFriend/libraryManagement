@@ -53,6 +53,22 @@ public class BookRepository {
         return em.createQuery("select m from Book m", Book.class).getResultList();
     }
 
+    //isbn으로 책 검색
+    public Book findByIsbn(String isbn){
+        List<Book> list = em.createQuery("SELECT r FROM Book r WHERE r.isbn = :isbn", Book.class)
+                .setParameter("isbn", isbn)
+                .getResultList();
+        return list.isEmpty() ? null : list.get(0);
+    }
+
+    public boolean existsByIsbn(String isbn) {
+        Long cnt = em.createQuery("SELECT r FROM Book r WHERE r.isbn = :isbn", Long.class)
+                .setParameter("isbn", isbn)
+                .getSingleResult();
+
+        return cnt != 0;
+    }
+
     //재고가 0이 되는것을 방지
     public Book findByIdForUpdate(Long id) {
         return em.find(Book.class, id, jakarta.persistence.LockModeType.PESSIMISTIC_WRITE);

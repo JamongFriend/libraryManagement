@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.libraryManagement.domain.Book;
 import project.libraryManagement.domain.Category;
+import project.libraryManagement.domain.dto.ApiBookDto;
 import project.libraryManagement.repository.BookRepository;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class BookService {
     private final BookRepository bookRepository;
+    private final LibraryApiService libraryApiService;
 
     @Transactional
     public void saveBook(Book book) {
@@ -21,11 +23,15 @@ public class BookService {
     }
 
     @Transactional
-    public void updateBook(Long id, String name, String isbn, String author, Category category, int stockQuantity){
+    public void updateBook(Long id, String name, String isbn,
+                           String publisher, String publicationYear,
+                           String author, Category category, int stockQuantity){
         Book book = bookRepository.findOne(id);
-        book.setBookName(name);
+        book.setTitle(name);
         book.setAuthor(author);
         book.setIsbn(isbn);
+        book.setPublisher(publisher);
+        book.setPublicationYear(publicationYear);
         book.setCategory(category);
         book.setStockQuantity(stockQuantity);
     }
@@ -35,11 +41,40 @@ public class BookService {
         bookRepository.deleteBook(id);
     }
 
+    @Transactional
     public List<Book> findAllBook() {
         return bookRepository.findAll();
     }
 
+    @Transactional
     public Book findOne(Long id) {
         return bookRepository.findOne(id);
+    }
+
+    @Transactional
+    public Long upsertByIsbn(String isbn, int addStock){
+        Book existing = bookRepository.findByIsbn(isbn);
+        if(existing != null) {
+            existing.addStock(addStock);
+            return existing.getId();
+        }
+
+        ApiBookDto dto = libraryApiService.fetchByIsbn(isbn);
+        if(dto == null || dto.getTitle() == null)
+            throw new IllegalArgumentException("해당 ISBN의 도서 정보를 찾을 수 없습니다");
+
+        Book book = Book.create(
+                dto.getTitle(),
+                dto.getIsbn(),
+                dto.getAuthor(),
+                dto.getPublisher(),
+                dto.getPublicationYear(),
+                dto.getThumbnailUrl(),
+                null,                // or Category.SOMETHING
+                addStock
+        );
+
+        bookRepository.save(book);
+        return book.getId();
     }
 }

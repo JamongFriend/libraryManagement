@@ -14,11 +14,11 @@ public class ApiBookDto {
     @JsonProperty("publisher")
     private String publisher;
 
+    @JsonProperty("publication_year")
+    private String publicationYear;
+
     @JsonProperty("isbn")
     private String isbn;
 
-    
-
-    @JsonProperty("publication_year")
-    private String publicationYear;
+    private String thumbnailUrl;
 }

@@ -59,7 +59,7 @@ public class BookController {
         Book book = bookService.findOne(id);
         BookForm form = new BookForm();
         form.setId(book.getId());
-        form.setName(book.getBookName());
+        form.setName(book.getTitle());
         form.setAuthor(book.getAuthor());
         form.setIsbn(book.getIsbn());
         form.setCategory(book.getCategory());

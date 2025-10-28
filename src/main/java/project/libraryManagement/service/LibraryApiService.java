@@ -22,27 +22,31 @@ public class LibraryApiService {
     private final RestTemplate restTemplate;
     private final ObjectMapper objectMapper;
 
-    public List<ApiBookDto> searchBooks(String keyword, int pageNum) {
+    public ApiBookDto fetchByIsbn(String isbn) {
         String url = "https://www.nl.go.kr/NL/search/openApi/search.do"
                 + "?key=" + apiKey
-                + "&kwd=" + keyword
-                + "&pageSize=10&pageNum=" + pageNum
-                + "&format=json";  // JSON 형식 명시
+                + "&kwd=" + isbn
+                + "&pageSize=10&pageNum=1"
+                + "&format=json";
         try {
             String response = restTemplate.getForObject(url, String.class);
             JsonNode root = objectMapper.readTree(response);
 
             JsonNode docs = root.path("result").path("docs");
-            List<ApiBookDto> result = new ArrayList<>();
+            if(!docs.isArray() || docs.size() == 0) return null;
+            JsonNode doc = docs.get(0);
 
-            for(JsonNode doc : docs) {
-                ApiBookDto dto = objectMapper.treeToValue(doc, ApiBookDto.class);
-                result.add(dto);
-            }
-            return result;
+            ApiBookDto dto = new ApiBookDto();
+            dto.setTitle(doc.path("titleInfo").asText(null));
+            dto.setAuthor(doc.path("authorInfo").asText(null));
+            dto.setPublisher(doc.path("publisherInfo").asText(null));
+            dto.setPublicationYear(doc.path("publicationYearInfo").asText(null));
+            dto.setIsbn(doc.path("isbnInfo").asText(isbn));
+            dto.setThumbnailUrl(doc.path("thumbnailUrlInfo").asText(null));
+
+            return dto;
         } catch (Exception e) {
-            log.error("국립중앙도서관 API 호출 중 오류 발생: {}", e.getMessage(), e);
-            throw new RuntimeException("API 응답 처리 중 오류 발생", e);
+            throw new RuntimeException("국립중앙도서관 ISBN 조회 실패", e);
         }
     }
 }
