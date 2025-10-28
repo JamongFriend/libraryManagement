@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Getter @Setter
+@Getter
 public class Book {
     @Id
     @GeneratedValue
@@ -54,16 +54,28 @@ public class Book {
                               String publisher, String publicationYear,
                               String thumbnailUrl, Category category,
                               int stockQuantity) {
-        Book b = new Book();
-        b.setTitle(title);
-        b.setIsbn(isbn);
-        b.setAuthor(author);
-        b.setPublisher(publisher);
-        b.setPublicationYear(publicationYear);
-        b.setThumbnailUrl(thumbnailUrl);
-        b.setCategory(category);
-        b.setStockQuantity(stockQuantity);
-        return b;
+        Book book = new Book();
+        book.title = title;
+        book.author = author;
+        book.isbn = isbn;
+        book.publisher = publisher;
+        book.publicationYear = publicationYear;
+        book.thumbnailUrl = thumbnailUrl;
+        book.category = category;
+        book.stockQuantity = stockQuantity;
+        return book;
+    }
+
+    public void updateInfo(String title, String author, String isbn,
+                           String publisher, String publicationYear, Category category,
+                           int stockQuantity) {
+        this.title = title;
+        this.author = author;
+        this.isbn = isbn;
+        this.publisher = publisher;
+        this.publicationYear = publicationYear;
+        this.category = category;
+        this.stockQuantity = stockQuantity;
     }
 
     protected Book() {}

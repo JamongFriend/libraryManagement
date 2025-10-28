@@ -35,10 +35,13 @@ public class BookController {
             return "books/createBook";
         }
         Book book = new Book(
-                form.getName(),
+                form.getTitle(),
                 form.getStockQuantity(),
                 form.getAuthor(),
                 form.getIsbn(),
+                form.getPublisher(),
+                form.getPublicationYear(),
+                form.getThumbnailUrl(),
                 form.getCategory()
         );
         bookService.saveBook(book);
@@ -57,22 +60,17 @@ public class BookController {
     @GetMapping(value = "/books/{bookId}/edit")
     public String updateBookForm(@PathVariable("bookId") Long id, Model model){
         Book book = bookService.findOne(id);
-        BookForm form = new BookForm();
-        form.setId(book.getId());
-        form.setName(book.getTitle());
-        form.setAuthor(book.getAuthor());
-        form.setIsbn(book.getIsbn());
-        form.setCategory(book.getCategory());
-        form.setStockQuantity(book.getStockQuantity());
-        model.addAttribute("form", form);
+        model.addAttribute("form", BookForm.of(book));
         model.addAttribute("categories", Category.values());
         return "books/updateBookForm";
     }
 
     @PostMapping(value = "/books/{bookId}/edit")
     public String updateBook(@PathVariable("bookId") Long bookId, @ModelAttribute("form") BookForm form){
-        bookService.updateBook(bookId, form.getName(), form.getIsbn(), form.getAuthor(), form.getCategory(), form.getStockQuantity());
-        System.out.println("✅ 수정 실행됨: " + bookId + " / " + form.getName());
+        bookService.updateBook(bookId, form.getTitle()
+                , form.getIsbn(), form.getPublisher(), form.getPublicationYear(),
+                form.getAuthor(), form.getCategory(), form.getStockQuantity());
+        System.out.println("✅ 수정 실행됨: " + bookId + " / " + form.getTitle());
         return "redirect:/books";
     }
 

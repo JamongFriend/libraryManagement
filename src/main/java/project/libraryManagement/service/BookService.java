@@ -23,17 +23,11 @@ public class BookService {
     }
 
     @Transactional
-    public void updateBook(Long id, String name, String isbn,
+    public void updateBook(Long id, String title, String isbn,
                            String publisher, String publicationYear,
                            String author, Category category, int stockQuantity){
         Book book = bookRepository.findOne(id);
-        book.setTitle(name);
-        book.setAuthor(author);
-        book.setIsbn(isbn);
-        book.setPublisher(publisher);
-        book.setPublicationYear(publicationYear);
-        book.setCategory(category);
-        book.setStockQuantity(stockQuantity);
+        book.updateInfo(title, author, isbn, publisher, publicationYear, category, stockQuantity);
     }
 
     @Transactional
