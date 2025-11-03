@@ -55,4 +55,25 @@ public class ReservationRepository {
                 .getResultList();
         return list.isEmpty() ? null : list.get(0);
     }
+
+    public List<Reservation> findByMemberId(Long memberId){
+        return em.createQuery("SELECT r FROM Reservation r " +
+                        "WHERE r.member.id = :memberId " +
+                        "ORDER BY r.reservationDate DESC", Reservation.class)
+                .setParameter("memberId", memberId)
+                .getResultList();
+    }
+
+    public Reservation findByIdAndMemberId(Long reservationId, Long memberId){
+        try {
+            return em.createQuery("SELECT r FROM Reservation r " +
+                                    "WHERE r.id = :reservationId AND r.member.id = :memberId",
+                            Reservation.class)
+                    .setParameter("reservationId", reservationId)
+                    .setParameter("memberId", memberId)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
 }

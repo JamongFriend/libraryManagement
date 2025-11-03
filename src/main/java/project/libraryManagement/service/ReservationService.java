@@ -39,12 +39,28 @@ public class ReservationService {
         return reservation.getId();
     }
 
+    @Transactional
     public void cancel(Long id) {
         Reservation reservation = reservationRepository.findReservationBook(id);
         reservation.cancel();
     }
 
+    @Transactional
     public List<Reservation> findAll() {
         return reservationRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public List<Reservation> findByMemberId(Long memberId) {
+        return reservationRepository.findByMemberId(memberId);
+    }
+
+    @Transactional
+    public void cancelByOwner(Long memberId, Long reservationId){
+        Reservation r = reservationRepository.findByIdAndMemberId(reservationId, memberId);
+        if (r == null) {
+            throw new IllegalArgumentException("본인 예약이 아니거나 존재하지 않습니다.");
+        }
+        cancel(reservationId); // ← 기존 로직 재사용
     }
 }
