@@ -9,7 +9,7 @@
 
 <form th:action="@{/books/new}" th:object="${bookForm}" method="post">
   <div>
-    도서명: <input type="text" th:field="*{name}" required>
+    도서명: <input type="text" th:field="*{title}" required>
   </div>
   <div>
     저자: <input type="text" th:field="*{author}" required>
@@ -26,8 +26,8 @@
   <div>
     재고 수량: <input type="number" th:field="*{stockQuantity}" min="0">
   </div>
-  <br>
   <button type="submit">등록</button>
 </form>
+
 </body>
 </html>

@@ -5,6 +5,8 @@
   <title>도서 반납</title>
 </head>
 <body>
+<div th:replace="~{header :: header}"></div>
+
 <h1>📗 도서 반납</h1>
 
 <form th:action="@{/rentals/return}" method="post">
@@ -13,5 +15,7 @@
   <br><br>
   <button type="submit">반납하기</button>
 </form>
+
+<div th:replace="~{footer :: footer}"></div>
 </body>
 </html>

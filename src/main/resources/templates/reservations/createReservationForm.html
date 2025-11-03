@@ -1,26 +1,28 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title>도서 예약</title>
-</head>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head><meta charset="UTF-8"><title>도서 예약</title></head>
 <body>
+<div th:replace="~{header :: header}"></div>
+
 <h1>📕 도서 예약</h1>
-
 <form th:action="@{/reservations}" method="post">
-  <input type="hidden" name="memberId" th:value="${members.id}"/>
+  <input type="hidden" name="memberId" th:value="${session.member_id}"/>
 
-  <p>회원: <span th:text="${members.name}">회원이름</span></p>
+  <p sec:authorize="isAuthenticated()">
+    예약자: <b><span sec:authentication="name"></span></b>
+  </p>
 
   <label for="book">도서 선택:</label>
   <select name="bookId" id="book">
-    <option th:each="book : ${books}" th:value="${book.id}" th:text="${book.bookName}">도서명</option>
+    <option th:each="book : ${books}" th:value="${book.id}" th:text="${book.title}">도서명</option>
   </select>
   <br><br>
 
   수량: <input type="number" name="count" value="1" min="1"><br><br>
-
   <button type="submit">예약하기</button>
 </form>
+
+<div th:replace="~{footer :: footer}"></div>
 </body>
 </html>

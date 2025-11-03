@@ -1,22 +1,16 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title>도서 목록</title>
-</head>
+<head><meta charset="UTF-8"><title>도서 목록</title></head>
 <body>
-<h1>📗 도서 목록</h1>
+<div th:replace="~{header :: header}"></div>
 
+<h1>📗 도서 목록</h1>
 <table border="1">
   <tr>
-    <th>도서명</th>
-    <th>저자</th>
-    <th>카테고리</th>
-    <th>재고</th>
-    <th>수정</th>
+    <th>도서명</th><th>저자</th><th>카테고리</th><th>재고</th><th>수정</th>
   </tr>
   <tr th:each="book : ${books}">
-    <td th:text="${book.bookName}">책이름</td>
+    <td th:text="${book.title}">책이름</td>
     <td th:text="${book.author}">저자</td>
     <td th:text="${book.category.displayName}">카테고리</td>
     <td th:text="${book.stockQuantity}">0</td>
@@ -34,5 +28,6 @@
   <a th:href="@{/books/new}">도서 등록</a>
 </div>
 
+<div th:replace="~{footer :: footer}"></div>
 </body>
 </html>

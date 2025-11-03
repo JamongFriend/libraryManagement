@@ -1,37 +1,29 @@
 <!DOCTYPE html>
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
-<head>
-  <meta charset="UTF-8">
-  <title>대여 내역</title>
-</head>
+<head><meta charset="UTF-8"><title>대여 내역</title></head>
 <body>
-<div th:replace="~{fragments/header :: header}"></div>
-<h1>📖 전체 도서 대여 목록</h1>
+<div th:replace="~{header :: header}"></div>
 
+<h1>📖 전체 도서 대여 목록</h1>
 <table border="1">
   <tr>
-    <th>대여 ID</th>
-    <th>회원명</th>
-    <th>도서 목록</th>
-    <th>대여일</th>
-    <th>반납일</th>
-    <th>상태</th>
+    <th>대여 ID</th><th>회원명</th><th>도서 목록</th><th>대여일</th><th>반납일</th><th>상태</th>
   </tr>
   <tr th:each="rental : ${rentals}">
     <td th:text="${rental.id}">1</td>
     <td th:text="${rental.member.name}">홍길동</td>
-
-    <!-- 대여한 도서들 출력 -->
     <td>
       <ul>
-        <li th:each="rb : ${rental.rentalBooks}" th:text="${rb.book.bookName} + ' (' + ${rb.count} + '권)'"></li>
+        <li th:each="rb : ${rental.rentalBooks}"
+            th:text="${rb.book.title} + ' (' + ${rb.count} + '권)'"></li>
       </ul>
     </td>
-
     <td th:text="${#temporals.format(rental.rentalDate, 'yyyy-MM-dd')}">2024-01-01</td>
     <td th:text="${rental.returnDate != null ? #temporals.format(rental.returnDate, 'yyyy-MM-dd') : '-'}">-</td>
     <td th:text="${rental.status.name() == 'RETURNED' ? '반납 완료' : '대여 중'}">상태</td>
   </tr>
 </table>
+
+<div th:replace="~{footer :: footer}"></div>
 </body>
 </html>
