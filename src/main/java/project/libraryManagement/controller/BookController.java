@@ -74,6 +74,12 @@ public class BookController {
         return "redirect:/books";
     }
 
+    // ISBN 검색/자동 등록 페이지
+    @GetMapping("/books/isbn")
+    public String isbnPage() {
+        return "books/isbnRegister";
+    }
+
     @DeleteMapping(value = "/books/{bookId}")
     public String delete(@PathVariable("bookId") Long bookId, RedirectAttributes redirectAttributes) {
         try {

@@ -1,6 +1,7 @@
 package project.libraryManagement.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import project.libraryManagement.domain.dto.ApiBookDto;
@@ -30,7 +31,7 @@ public class BookApiController {
     }
 
     // 2) 즉시 등록/증가
-    @PostMapping("/register-by-isbn")
+    @PostMapping(value = "/register-by-isbn", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public ResponseEntity<Long> registerByIsbn(@RequestParam String isbn,
                                                @RequestParam(defaultValue = "1") int stock) {
         String normalized = normalizeIsbn(isbn);
@@ -46,7 +47,6 @@ public class BookApiController {
 
     private static String normalizeIsbn(String raw) {
         if(raw == null) return null;
-
         return raw.replaceAll("[^0-9Xx]", "").toUpperCase();
     }
 

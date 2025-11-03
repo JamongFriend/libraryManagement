@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"/>
+  <title>ISBN으로 도서 검색 · 등록</title>
+  <style>
+    .wrap { max-width: 760px; margin: 0 auto; }
+    .row { margin: 8px 0; }
+    table { width:100%; border-collapse: collapse; margin-top: 12px; }
+    th, td { border: 1px solid #ddd; padding: 8px; }
+    .muted { color:#666; font-size: 0.9em; }
+  </style>
+</head>
+<body>
+<div th:replace="~{header :: header}"></div>
+
+<div class="wrap">
+  <h1>📚 ISBN으로 도서 검색 · 등록</h1>
+  <div class="row">
+    <input id="isbnInput" type="text" placeholder="ISBN(10 또는 13자리)" style="width:60%;">
+    <button id="btnLookup">검색</button>
+  </div>
+  <div class="row muted">하이픈/공백은 자동으로 제거됩니다.</div>
+
+  <div id="resultBox" style="display:none;">
+    <h3>검색 결과</h3>
+    <table>
+      <tbody>
+      <tr><th>제목</th><td id="rTitle"></td></tr>
+      <tr><th>저자</th><td id="rAuthor"></td></tr>
+      <tr><th>출판사</th><td id="rPublisher"></td></tr>
+      <tr><th>발행일</th><td id="rPubDate"></td></tr>
+      <tr><th>ISBN</th><td id="rIsbn"></td></tr>
+      </tbody>
+    </table>
+
+    <div class="row">
+      <label>등록/증가 수량: <input id="stockInput" type="number" min="1" value="1" style="width:80px;"></label>
+      <button id="btnRegister">즉시 등록/재고증가</button>
+    </div>
+    <div id="registerMsg" class="row"></div>
+  </div>
+
+  <div id="emptyMsg" class="row" style="display:none;">검색 결과가 없습니다.</div>
+  <div id="errorMsg" class="row" style="display:none; color:#c00;"></div>
+
+  <div class="row">
+    <a th:href="@{/books}">← 도서 목록으로</a>
+  </div>
+</div>
+
+<div th:replace="~{footer :: footer}"></div>
+
+<script>
+  const $ = (sel) => document.querySelector(sel);
+
+  function normalize(isbn) {
+    return (isbn || '').replace(/[^0-9Xx]/g, '').toUpperCase();
+  }
+
+  $('#btnLookup').addEventListener('click', async () => {
+    const raw = $('#isbnInput').value;
+    const isbn = normalize(raw);
+    $('#errorMsg').style.display = 'none';
+    $('#emptyMsg').style.display = 'none';
+    $('#resultBox').style.display = 'none';
+
+    if (!isbn || !(isbn.length === 10 || isbn.length === 13)) {
+      $('#errorMsg').textContent = '유효하지 않은 ISBN 형식입니다. (10자리 또는 13자리)';
+      $('#errorMsg').style.display = 'block';
+      return;
+    }
+
+    try {
+      const res = await fetch(`/api/books/lookup-isbn?isbn=${encodeURIComponent(isbn)}`);
+      if (res.status === 404) {
+        $('#emptyMsg').style.display = 'block';
+        return;
+      }
+      if (!res.ok) {
+        const msg = await res.text();
+        throw new Error(msg || '조회 중 오류가 발생했습니다.');
+      }
+      const dto = await res.json();
+      // dto: ApiBookDto (title, author, publisher, pubDate, isbn 등)
+      $('#rTitle').textContent = dto.title ?? '';
+      $('#rAuthor').textContent = dto.author ?? '';
+      $('#rPublisher').textContent = dto.publisher ?? '';
+      $('#rPubDate').textContent = dto.pubDate ?? '';
+      $('#rIsbn').textContent = dto.isbn ?? isbn;
+
+      $('#resultBox').style.display = 'block';
+    } catch (e) {
+      $('#errorMsg').textContent = e.message;
+      $('#errorMsg').style.display = 'block';
+    }
+  });
+
+  $('#btnRegister').addEventListener('click', async () => {
+    const isbn = normalize($('#rIsbn').textContent || $('#isbnInput').value);
+    const stock = parseInt($('#stockInput').value || '1', 10);
+    $('#registerMsg').textContent = '';
+
+    try {
+      const body = new URLSearchParams({ isbn, stock: String(stock) });
+      const res = await fetch('/api/books/register-by-isbn', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body
+      });
+      if (!res.ok) {
+        const msg = await res.text();
+        throw new Error(msg || '등록 중 오류가 발생했습니다.');
+      }
+      const id = await res.json(); // Long
+      $('#registerMsg').textContent = `등록/증가 완료! (도서 ID: ${id})`;
+      // 필요시 도서 상세/목록으로 이동:
+      // window.location.href = '/books';
+    } catch (e) {
+      $('#registerMsg').textContent = e.message;
+      $('#registerMsg').style.color = '#c00';
+    }
+  });
+</script>
+</body>
+</html>
