@@ -7,7 +7,7 @@
   <title>홈</title>
 </head>
 <body>
-<div th:replace="~{header :: header}"></div>
+<div th:replace="fragments/header-admin :: *"></div>
 
 <!-- 로그인 상태 출력 -->
 <div sec:authorize="isAuthenticated()">
@@ -15,10 +15,9 @@
 </div>
 
 <ul>
-  <li><a th:href="@{/books}">도서 목록</a></li>
-  <li><a th:href="@{/books/new}">도서 등록</a></li>
-  <li><a th:href="@{/rentals}">도서 대여</a></li>
-  <li><a th:href="@{/reservations}">도서 예약</a></li>
+  <li><a th:href="@{/admin/books/new}">도서 등록</a></li>
+  <li><a th:href="@{/admin/rentals}">도서 대여</a></li>
+  <li><a th:href="@{/admin/reservations}">도서 예약</a></li>
 </ul>
 
 <!-- 로그아웃 버튼 (로그인한 사용자만 보임) -->

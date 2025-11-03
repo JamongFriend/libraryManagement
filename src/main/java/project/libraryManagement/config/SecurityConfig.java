@@ -21,12 +21,10 @@ public class SecurityConfig {
         http
                 .authorizeHttpRequests(auth -> auth
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-                        .requestMatchers(
-                                "/", "/login", "/logout", "/members/**",
-                                "/books/**",
-                                "/css/**", "/js/**", "/images/**"
-                        ).permitAll()
+                        .requestMatchers("/", "/login", "/signup", "/css/**", "/js/**", "/images/**").permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/v1/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/app/**").hasAnyRole("USER","ADMIN")
                         .anyRequest().authenticated()
                 )
                 // 커스텀 로그인 페이지
@@ -34,7 +32,6 @@ public class SecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .loginProcessingUrl("/login")
-                        .defaultSuccessUrl("/", true)
                         .successHandler(new CustomLoginSuccessHandler())
                         .failureUrl("/login?error=true")
                         .permitAll()

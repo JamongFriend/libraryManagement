@@ -30,9 +30,8 @@ public class CustomLoginSuccessHandler implements AuthenticationSuccessHandler {
                 .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
         if (isAdmin) {
             response.sendRedirect("/admin/home");
-        }
-        else {
-            response.sendRedirect("/main");
+        } else {
+            response.sendRedirect("/app");
         }
     }
 }

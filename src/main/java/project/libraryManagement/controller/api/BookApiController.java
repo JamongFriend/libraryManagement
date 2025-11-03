@@ -1,8 +1,9 @@
-package project.libraryManagement.controller;
+package project.libraryManagement.controller.api;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import project.libraryManagement.domain.dto.ApiBookDto;
 import project.libraryManagement.service.BookService;
@@ -12,7 +13,8 @@ import java.net.URI;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/books")
+@RequestMapping("/api/v1/admin/books")
+@PreAuthorize("hasRole('ADMIN')")
 public class BookApiController {
 
     private final LibraryApiService libraryApiService;
@@ -44,15 +46,13 @@ public class BookApiController {
                 .body(id);
     }
 
-
-    private static String normalizeIsbn(String raw) {
-        if(raw == null) return null;
+    private String normalizeIsbn(String raw) {
         return raw.replaceAll("[^0-9Xx]", "").toUpperCase();
     }
 
     private static void validateIsbn(String isbn) {
-        if (isbn == null || !(isbn.length() == 10 || isbn.length() == 13)) {
-            throw new IllegalArgumentException("유효하지 않은 ISBN 형식입니다. (10자리 또는 13자리)");
+        if (!(isbn.length() == 10 || isbn.length() == 13)) {
+            throw new IllegalArgumentException("ISBN 형식이 올바르지 않습니다.");
         }
         // 필요하면 체크디지트 검증까지 추가 가능
     }
