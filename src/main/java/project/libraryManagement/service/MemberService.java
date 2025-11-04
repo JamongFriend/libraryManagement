@@ -55,4 +55,8 @@ public class MemberService {
     public Member findOneMember(Long memberId) {
         return memberRepository.findOne(memberId);
     }
+
+    public void deleteMember(Long id) {
+        memberRepository.deleteMember(id);
+    }
 }

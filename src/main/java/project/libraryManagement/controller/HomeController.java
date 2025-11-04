@@ -9,27 +9,26 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 @Slf4j
 public class HomeController {
-
+    // 루트 URL 접근 시 권한에 따라 리다이렉트
     @GetMapping("/")
     public String rootRedirect() {
-        // 루트 URL 접근 시 권한에 따라 리다이렉트
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
         if (auth != null && auth.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"))) {
-            return "redirect:/admin/home";
+            return "redirect:/admin/admin-home";
         }
 
         return "redirect:/main";
     }
 
-    @GetMapping("/admin/home")
+    @GetMapping("/admin/admin-home")
     public String adminHome() {
-        return "home";
+        return "admin-home";
     }
 
-    @GetMapping("/main")
+    @GetMapping("app/app-home")
     public String userHome() {
-        return "main";
+        return "app-home";
     }
 }

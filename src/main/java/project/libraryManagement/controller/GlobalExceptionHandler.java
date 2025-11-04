@@ -14,7 +14,7 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<String> upstream(RuntimeException e) {
-        // 외부 API 실패 등: 상황에 따라 502/503 택1
+        // 외부 API 실패 등: 상황에 따라 502/503
         return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body("외부 연동 실패: " + e.getMessage());
     }
 }

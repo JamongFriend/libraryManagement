@@ -39,4 +39,10 @@ public class MemberRepository {
                 .stream()
                 .findFirst();
     }
+
+    public void deleteMember(Long id){
+        em.createQuery("DELETE FROM Member m WHERE m.id = :id")
+                .setParameter("id", id)
+                .executeUpdate();
+    }
 }

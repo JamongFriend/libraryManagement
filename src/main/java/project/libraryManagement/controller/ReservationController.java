@@ -1,6 +1,7 @@
 package project.libraryManagement.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import project.libraryManagement.service.ReservationService;
 
 import java.util.List;
 
+@Profile("legacy")
 @Controller
 @RequiredArgsConstructor
 public class ReservationController {

@@ -57,6 +57,7 @@ public class RentalService {
 
         Reservation EarlistReservaion = reservationRepository.findEarlistByBook(bookId);
         if(EarlistReservaion == null) return;
+        Member member = EarlistReservaion.getMember();
 
         int count = 1;
         int period = 14;
