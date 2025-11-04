@@ -1,6 +1,7 @@
 package project.libraryManagement.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import project.libraryManagement.service.RentalService;
 
 import java.util.List;
 
+@Profile("legacy")
 @Controller
 @RequiredArgsConstructor
 public class RentalController {
@@ -44,8 +46,9 @@ public class RentalController {
     }
 
     @PostMapping("/rentals/return")
-    public String returnBook(@RequestParam Long rentalId) {
-        rentalService.returnBook(rentalId);
+    public String returnBook(@RequestParam Long rentalId,
+                             @RequestParam("memberId") Long memberId) {
+        rentalService.returnBook(rentalId, memberId);
         return "redirect:/rentals";
     }
 

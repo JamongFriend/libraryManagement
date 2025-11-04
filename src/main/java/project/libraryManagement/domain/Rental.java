@@ -15,14 +15,14 @@ public class Rental {
     @Column(name = "rental_id")
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
     private Member member;
 
     @OneToMany(mappedBy = "rental", cascade = CascadeType.ALL)
     private List<RentalBook> rentalBooks = new ArrayList<>();
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reservation_id", nullable = true)
     private Reservation reservation;
 
@@ -37,17 +37,16 @@ public class Rental {
         rentalBook.setRental(this);
     }
 
-    public void returnRental(){
-        if(this.status == RentalStatus.RENTAL){
-            this.status = RentalStatus.RETURNED;
-            this.returnDate = LocalDateTime.now();
-            for (RentalBook rentalBook : new ArrayList<>(rentalBooks)) {
-                returnRentalBook(rentalBook);
-            }
-        } else {
+    public void returnRental() {
+        if (this.status == RentalStatus.RETURNED) {
             throw new IllegalStateException("이미 반납된 도서입니다.");
         }
+        this.status = RentalStatus.RETURNED;
+        this.returnDate = LocalDateTime.now();
 
+        for (RentalBook rentalBook : new ArrayList<>(rentalBooks)) {
+            returnRentalBook(rentalBook);
+        }
     }
 
     protected Rental() {}
