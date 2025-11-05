@@ -1,4 +1,4 @@
-package project.libraryManagement.controller;
+package project.libraryManagement.controller.legacy;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Profile;
