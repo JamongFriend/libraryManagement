@@ -25,9 +25,6 @@ public class AdminRentalController {
         return "redirect:/admin/rentals";
     }
 
-    @GetMapping
-    public void findAll() {}
-
     // 예약 대기자 자동 할당 수동 트리거(옵션)
     @PostMapping("/books/{bookId}/allocate-next")
     public String allocateNext(@PathVariable Long bookId) {
