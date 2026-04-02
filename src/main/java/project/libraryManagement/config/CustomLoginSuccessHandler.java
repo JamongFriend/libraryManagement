@@ -6,7 +6,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-import project.libraryManagement.security.MemberDetails;
+import project.libraryManagement.config.security.MemberDetails;
 
 import java.io.IOException;
 
