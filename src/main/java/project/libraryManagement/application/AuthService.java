@@ -1,19 +1,18 @@
 package project.libraryManagement.application;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.libraryManagement.config.JwtProperties;
-import project.libraryManagement.domain.Auth.JwtTokenProvider;
-import project.libraryManagement.domain.Auth.RefreshToken;
-import project.libraryManagement.domain.Auth.RefreshTokenRepository;
-import project.libraryManagement.domain.Member.Member;
-import project.libraryManagement.domain.Member.MemberRepository;
-import project.libraryManagement.presentation.dto.Auth.Request.LoginRequest;
-import project.libraryManagement.presentation.dto.Auth.Request.ReissueRequest;
-import project.libraryManagement.presentation.dto.Auth.Response.TokenResponse;
+import project.libraryManagement.domain.auth.JwtTokenProvider;
+import project.libraryManagement.domain.auth.RefreshToken;
+import project.libraryManagement.domain.auth.RefreshTokenRepository;
+import project.libraryManagement.domain.member.Member;
+import project.libraryManagement.domain.member.MemberRepository;
+import project.libraryManagement.presentation.dto.auth.request.LoginRequest;
+import project.libraryManagement.presentation.dto.auth.request.ReissueRequest;
+import project.libraryManagement.presentation.dto.auth.response.TokenResponse;
 
 import java.time.LocalDateTime;
 

@@ -3,13 +3,13 @@ package project.libraryManagement.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import project.libraryManagement.domain.Book.Book;
-import project.libraryManagement.domain.Member.Member;
-import project.libraryManagement.domain.Reservation.Reservation;
-import project.libraryManagement.domain.Reservation.ReservationBook;
-import project.libraryManagement.infrastructure.Book.BookJpaRepository;
-import project.libraryManagement.infrastructure.Member.MemberJpaRepository;
-import project.libraryManagement.domain.Reservation.ReservationRepository;
+import project.libraryManagement.domain.book.Book;
+import project.libraryManagement.domain.member.Member;
+import project.libraryManagement.domain.reservation.Reservation;
+import project.libraryManagement.domain.reservation.ReservationBook;
+import project.libraryManagement.infrastructure.book.BookJpaRepository;
+import project.libraryManagement.infrastructure.member.MemberJpaRepository;
+import project.libraryManagement.domain.reservation.ReservationRepository;
 
 import java.util.List;
 

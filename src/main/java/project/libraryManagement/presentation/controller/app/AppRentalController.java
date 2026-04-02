@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import project.libraryManagement.domain.Rental.Rental;
+import project.libraryManagement.domain.rental.Rental;
 import project.libraryManagement.application.RentalService;
 
 import java.util.List;

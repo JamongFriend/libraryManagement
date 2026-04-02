@@ -1,12 +1,11 @@
 package project.libraryManagement.application;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import project.libraryManagement.domain.Member.Member;
-import project.libraryManagement.infrastructure.Member.MemberJpaRepository;
+import project.libraryManagement.domain.member.Member;
+import project.libraryManagement.infrastructure.member.MemberJpaRepository;
 
 import java.util.List;
 import java.util.Optional;

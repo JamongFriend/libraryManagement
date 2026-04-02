@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import project.libraryManagement.presentation.controller.MemberForm;
-import project.libraryManagement.domain.Member.Member;
+import project.libraryManagement.domain.member.Member;
 import project.libraryManagement.application.MemberService;
 
 @Controller

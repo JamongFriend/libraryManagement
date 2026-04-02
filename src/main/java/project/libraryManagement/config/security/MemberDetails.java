@@ -3,7 +3,7 @@ package project.libraryManagement.config.security;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import project.libraryManagement.domain.Member.Member;
+import project.libraryManagement.domain.member.Member;
 
 import java.util.Collection;
 import java.util.List;

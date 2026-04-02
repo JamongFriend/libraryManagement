@@ -4,8 +4,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-import project.libraryManagement.domain.Member.Member;
-import project.libraryManagement.infrastructure.Member.MemberJpaRepository;
+import project.libraryManagement.domain.member.Member;
+import project.libraryManagement.infrastructure.member.MemberJpaRepository;
 
 @Service
 public class MemberDetailsService implements UserDetailsService {

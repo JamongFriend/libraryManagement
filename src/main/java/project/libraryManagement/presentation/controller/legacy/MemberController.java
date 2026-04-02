@@ -9,7 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import project.libraryManagement.presentation.controller.MemberForm;
-import project.libraryManagement.domain.Member.Member;
+import project.libraryManagement.domain.member.Member;
 import project.libraryManagement.application.MemberService;
 
 @Profile("legacy")

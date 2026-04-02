@@ -2,8 +2,8 @@ package project.libraryManagement.presentation.controller;
 
 import lombok.Getter;
 import lombok.Setter;
-import project.libraryManagement.domain.Book.Book;
-import project.libraryManagement.domain.Book.Category;
+import project.libraryManagement.domain.book.Book;
+import project.libraryManagement.domain.book.Category;
 
 @Getter @Setter
 public class BookForm {

@@ -8,7 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import project.libraryManagement.presentation.controller.MemberForm;
-import project.libraryManagement.domain.Member.Member;
+import project.libraryManagement.domain.member.Member;
 import project.libraryManagement.application.MemberService;
 
 @Controller

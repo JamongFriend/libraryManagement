@@ -9,8 +9,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import project.libraryManagement.presentation.controller.BookForm;
-import project.libraryManagement.domain.Book.Book;
-import project.libraryManagement.domain.Book.Category;
+import project.libraryManagement.domain.book.Book;
+import project.libraryManagement.domain.book.Category;
 import project.libraryManagement.application.BookService;
 
 import java.util.List;

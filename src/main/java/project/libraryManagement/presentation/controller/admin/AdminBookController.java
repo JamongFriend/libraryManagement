@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import project.libraryManagement.presentation.controller.BookForm;
-import project.libraryManagement.domain.Book.Book;
-import project.libraryManagement.domain.Book.Category;
+import project.libraryManagement.domain.book.Book;
+import project.libraryManagement.domain.book.Category;
 import project.libraryManagement.application.BookService;
 
 @Controller

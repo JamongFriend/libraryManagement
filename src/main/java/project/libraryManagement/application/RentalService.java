@@ -4,17 +4,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import project.libraryManagement.domain.Book.Book;
-import project.libraryManagement.domain.Member.Member;
-import project.libraryManagement.domain.Rental.Rental;
-import project.libraryManagement.domain.Rental.RentalBook;
-import project.libraryManagement.domain.Rental.RentalStatus;
-import project.libraryManagement.domain.Reservation.Reservation;
-import project.libraryManagement.domain.Reservation.ReservationStatus;
-import project.libraryManagement.infrastructure.Book.BookJpaRepository;
-import project.libraryManagement.infrastructure.Member.MemberJpaRepository;
-import project.libraryManagement.domain.Rental.RentalRepository;
-import project.libraryManagement.domain.Reservation.ReservationRepository;
+import project.libraryManagement.domain.book.Book;
+import project.libraryManagement.domain.member.Member;
+import project.libraryManagement.domain.rental.Rental;
+import project.libraryManagement.domain.rental.RentalBook;
+import project.libraryManagement.domain.rental.RentalStatus;
+import project.libraryManagement.domain.reservation.Reservation;
+import project.libraryManagement.domain.reservation.ReservationStatus;
+import project.libraryManagement.infrastructure.book.BookJpaRepository;
+import project.libraryManagement.infrastructure.member.MemberJpaRepository;
+import project.libraryManagement.domain.rental.RentalRepository;
+import project.libraryManagement.domain.reservation.ReservationRepository;
 
 import java.util.List;
 

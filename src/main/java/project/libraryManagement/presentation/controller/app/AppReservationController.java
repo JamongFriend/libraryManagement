@@ -6,7 +6,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import project.libraryManagement.domain.Reservation.Reservation;
+import project.libraryManagement.domain.reservation.Reservation;
 import project.libraryManagement.application.ReservationService;
 
 import java.util.List;

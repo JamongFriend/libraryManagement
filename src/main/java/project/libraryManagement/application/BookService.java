@@ -3,10 +3,10 @@ package project.libraryManagement.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import project.libraryManagement.domain.Book.Book;
-import project.libraryManagement.domain.Book.Category;
+import project.libraryManagement.domain.book.Book;
+import project.libraryManagement.domain.book.Category;
 import project.libraryManagement.presentation.dto.ApiBookDto;
-import project.libraryManagement.infrastructure.Book.BookJpaRepository;
+import project.libraryManagement.infrastructure.book.BookJpaRepository;
 
 import java.util.List;
 
