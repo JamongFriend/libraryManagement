@@ -2,23 +2,15 @@ package project.libraryManagement.domain.Book;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 public interface BookRepository {
-    @PersistenceContext
-    private EntityManager em;
 
-    public void save(Book book) {
-        if(book.getId() == null) {
-            em.persist(book);
-        }
-        else {
-            em.merge(book);
-        }
-    }
+    public void save(Book book) {}
     //책 삭제
     public void deleteBook(Long bookId){
         if(!canDeleteBook(bookId)) {

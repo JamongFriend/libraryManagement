@@ -35,19 +35,6 @@ public class MemberService {
 
     }
 
-    public Long login(String email, String password, HttpSession session) {
-        Member member = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 회원입니다."));
-
-        if(!passwordEncoder.matches(password, member.getPassword())){
-            throw new IllegalArgumentException("비밀번호가 일치하지 않습니다.");
-        }
-
-        session.setAttribute("member_id", member.getId());
-
-        return member.getId();
-    }
-
     public List<Member> findAllMember() {
         return memberRepository.findAll();
     }
